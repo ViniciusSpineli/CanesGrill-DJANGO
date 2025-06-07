@@ -1,0 +1,105 @@
+1° -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --
+  - Criar a venv 
+  - ativar a venv
+	- python -m venv ./venv
+ 	- venv\Scripts\Activate
+	
+2° -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --
+  - Instalar o DJANGO (ele baixa uma instancia django pra dentro da minha venv, maquina virtual.)
+	- pip install django
+
+3° --> INFORMAÇÂO IMPORTANTE -- ------------------------------------------------------------------------------------------------------------------------------------------------------------- --
+  - Iniciar o projeto 
+	django-admin startproject canesgril --> canesgril é o nome do nosso PROJETO.
+	cd canesgril			    --> ir para nossa pasta do projeto que criamos.
+	python manage.py startapp churras   --> churras vai ser nosso APP
+
+4° -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --
+	Dentro do settings.py
+		- ALLOWED_HOSTS --> é para digitar qual site vai permitir, se não for especifico um coloca o * ficando ALLOWED_HOSTS[*]
+		- INSTALLED_APPS --> Local onde vai ficar setado nossos APPS
+		- TEMPLATES	 --> Onde irá ficar nossos templates.html, colocar na variável DIRS 'DIRS': ['templates'],
+		- DATABASES      --> Conexão de banco de dados
+		- LANGUAGE_CODE	 --> Por nosso idioma 'pt - br'
+
+5° -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --
+	Comando para startar --> py manage.py runserver 
+
+6° -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -- 
+	Criar a pasta templates
+		- Dentro dela criar os HTML
+
+7°-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --
+	Criar a função que vai encontrar nosso arquivo 
+		- No views do APP criar a view que irá retornar nossa pagina HTML
+
+8°-- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --
+	Agora vamos criar nossas rotas
+		- Vamos criar um arquivo dentro do nosso APP chamado URLS com o seguinte código , isso vai gerar nossas rotas.
+			from django.urls import path
+			from .views import index, contato
+			
+			urlpatterns = [
+			    path('', index),
+			    path('contato',contato)   
+
+			]
+
+9° -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --
+	Na url do projeto vamos precisar importar o include e colocar este código
+	
+		from django.contrib import admin
+		from django.urls import path, include
+
+		urlpatterns = [
+		    path('admin/', admin.site.urls),
+		    path('', include('churras.urls')),
+		    path('pessoas/', include('pessoas.urls'))
+		]
+	
+	path('', include('churras.urls')) --> este carinha aki esta incluindo nosso APP dentro do projeto fazendo com que as rotas fique no global e ele ta definindo este APP como padrão. 
+	path('pessoas/', include('pessoas.urls') --> Agora vamos supor que vamos fazer um outro APP, tipo  PESSOAS, esse cara teria que ficar com a linha de código da seguinte forma.
+
+
+10° -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --
+	Incluir os estaticos
+
+
+		STATIC_URL = '/static/'
+		STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+
+
+		1. 'STATIC_URL = '/static/'
+
+		* Essa linha define a URL base para acessar os arquivos estáticos no seu site.
+		* **Arquivos estáticos** são recursos como CSS, JavaScript, imagens, fontes, etc.
+		* Com essa configuração, quando você colocar uma tag no HTML como `<img src="/static/img/logo.png">`, o Django sabe que o arquivo estático está disponível a partir do caminho `/static/`.
+
+
+
+ 		2. 'STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]'
+
+		* Essa linha diz ao Django onde procurar os arquivos estáticos no seu projeto durante o desenvolvimento.
+		* `BASE_DIR` normalmente é a pasta raiz do seu projeto.
+		* `os.path.join(BASE_DIR, 'static')` junta o caminho da pasta base com a pasta `'static'`, ou seja, o Django vai olhar na pasta `static` dentro do diretório principal do projeto para encontrar os arquivos estáticos.
+		* Essa configuração é útil para armazenar seus arquivos estáticos localmente, antes de fazer o deploy (publicação) do projeto.
+
+		3. STATIC_ROOT = BASE_DIR / 'staticfiles'
+		* Esse carinha é para base de produção, ele vai pegar todos os estáticos do nosso código e vai gerar um para produção
+		
+		Resumo
+
+		* 'STATIC_URL' define o endereço URL que será usado para acessar arquivos estáticos no navegador.
+		* 'STATICFILES_DIRS' informa onde o Django deve buscar esses arquivos na estrutura de pastas do projeto.
+
+	Depois de feito isso vamos criar uma pasta chamada STATIC na sequencia do MANAGE
+	Dentro do STATIC vamos criar as pastas CSS e JS 
+		Na CSS vamos colocar o style.css
+		Na JS vamos criar a script.js
+
+	Para usar isso temos que colocar esses caras la no templates com o seguinte código
+		{% load static %} 						--> isso aki vai por antes da primeira estrutura do html <!DOCTYPE html>
+		<link rel="stylesheet" href="{ % static 'css/style.css' %}> 	--> Isso aki vai no head
+		
+11° -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --
