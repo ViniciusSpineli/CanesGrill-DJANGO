@@ -1,13 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<!-- A ideia de utilizar esta estrutura de arquivos base.html, partials é para não ter que usar os mesmos códigos html que tem no começo de todo html -->
+<!-- Caso fosse ter mais de 2 rotas, iriamos utilizar tudo no menu para criar.-->
+{% extends 'base.html' %}    
+{% load static %}
+
+{% block content %}
+    
+    <!-- Título -->
+    <title>Canes Grill - Home</title>
 </head>
+
 <body>
-    <h1>CanesGrill - Sempre ao Ponto</h1>
-    <p>Bem Vindo Cliente!</p>
-</body>
-</html>
+
+    {% include "partials/menu.html" %}
+
+     <!-- ##### Best Receipe Area Start ##### -->
+     <section class="best-receipe-area">
+        <div class="container">
+            <div class="row">
+                
+                {% for chave, prato in lista_pratos.items %}
+                    <!-- Single Best Receipe Area -->
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="single-best-receipe-area mb-30">
+                            <img src="{% static '/img/bg-img/foto_receita.png' %}" alt="">
+                            <div class="receipe-content">
+                                <a href="#">
+                                    <h5>{{ prato }}</h5>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </section>
+    <!-- ##### Best Receipe Area End ##### -->
+
+    
+    <!-- ##### Footer Area Start ##### -->
+
+    {% include "partials/footer.html" %}
+{% endblock %} 

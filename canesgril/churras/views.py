@@ -2,8 +2,17 @@ from django.shortcuts import render
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+    dados = {'lista_pratos':
+        {
+         '1':'Picanha',
+         '2':'Costela',
+         '3':'Cupim',
+         '4':'Fraldinha',
+         '5':'Contra filé',
+         '6':'Alcatra'
+        }
+    }
+    return render(request, 'index.html', dados)
 
-def contato(request):
-    context = {'email':'contato@teste.com'}
-    return render(request, 'contato.html', context)
+def churrasco(request):
+    return render(request, 'churrasco.html')
