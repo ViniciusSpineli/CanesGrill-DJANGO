@@ -103,3 +103,18 @@
 		<link rel="stylesheet" href="{ % static 'css/style.css' %}> 	--> Isso aki vai no head
 		
 11° -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --
+  Comandos: 
+    python manage.py makemigrations --> Este comando vai preparar para criar uma nova tabela no nosso banco de acordo com oque colocar la no models
+					Depois de rodar este comando ele vai criar um arquivo la em migrations
+					Se colocarmos o nome do nosso APP afrente do makemigrations tbm funciona mas ai funcionaria só para o APP que colocarmos
+
+    python manage.py migrate 	    --> Aki ele realmente cria a tabela 
+
+12° -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --
+  Como criar um novo usuário la para o admin do nosso projeto
+    ptyhon manage.py create superuser
+
+13° -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --
+  Dentro do models.py vamos colocar o comando para que retorne la no admim o nome do prato ao invés do object project
+    def __str__(self):
+        return self.nome_prato
