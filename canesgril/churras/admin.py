@@ -16,12 +16,25 @@ from .models import Cliente, Produto, Prato
 #admin.site.register(Produto)
 
 class ListandoPratos(admin.ModelAdmin):
-    list_display = ('id', 'nome_prato', 'categoria', 'tempo_preparo')
+    list_display = ('id', 'nome_prato', 'categoria', 'tempo_preparo', 'publicado')
     list_display_links = ('id', 'nome_prato')
     search_fields = ('nome_prato',)
     list_filter = ('categoria',)
-    list_per_page = 12
+    list_editable = ('publicado',)
     ordering = ('id',)
 
+    actions = ['marcar_como_publicado', 'desmcarcar_como_publicado']
+    
+    def marcar_como_publicado (self, request, queryset):
+        atualizados = queryset.update(publicado=True)
+        self.message_user(request, f"{atualizados} pratos foram marcados como publicados.")
+    
+    marcar_como_publicado.short_description = "Publicar Todos"
+
+    def desmcarcar_como_publicado (self, request, queryset):
+        atualizados = queryset.update(publicado=False)
+        self.message_user(request, f"{atualizados} pratos foram desmarcados como publicados.")
+    
+    desmcarcar_como_publicado.short_description = "Desmarcar Todos"
 
 admin.site.register(Prato, ListandoPratos)
