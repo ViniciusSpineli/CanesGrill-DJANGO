@@ -21,7 +21,7 @@ __pycache__/
 ### Arquivos de Banco de Dados ###
 # Ignore o banco de dados de desenvolvimento local (SQLite).
 # Em produção, você provavelmente usará um banco de dados mais robusto.
-db.sqlite3
+#db.sqlite3
 db.sqlite3-journal
 
 ### Arquivos de Mídia e Estáticos ###
